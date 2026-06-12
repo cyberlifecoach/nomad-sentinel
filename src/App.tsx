@@ -1,9 +1,11 @@
+import Journal from "./pages/Journal";
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
 function App() {
   const [version, setVersion] = useState("");
   const [isDark, setIsDark] = useState(true);
+  const [currentPage, setCurrentPage] = useState("dashboard");
 
   useEffect(() => {
     invoke<string>("get_app_version").then(setVersion);
@@ -90,8 +92,8 @@ function App() {
           <NavItem icon="🔍" label="Metadata scrubber" isDark={isDark} />
 
           <NavSection label="Travel" />
-          <NavItem icon="📊" label="Dashboard" isDark={isDark} active />
-          <NavItem icon="📓" label="Journal" isDark={isDark} />
+          <NavItem icon="📊" label="Dashboard" isDark={isDark} active={currentPage === "dashboard"} onClick={() => setCurrentPage("dashboard")} />
+          <NavItem icon="📓" label="Journal" isDark={isDark} active={currentPage === "journal"} onClick={() => setCurrentPage("journal")} />
           <NavItem icon="✅" label="Packing lists" isDark={isDark} />
           <NavItem icon="💰" label="Expenses" isDark={isDark} />
           <NavItem icon="🌍" label="Country guide" isDark={isDark} />
@@ -112,56 +114,62 @@ function App() {
           backgroundColor: isDark ? "#0f1923" : "#f0f4f8",
           padding: "20px", overflowY: "auto",
         }}>
-          {/* Page header */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-            <div>
-              <div style={{ fontSize: "18px", fontWeight: 500 }}>Dashboard</div>
-              <div style={{ fontSize: "12px", color: isDark ? "#8fa3b8" : "#4d6278", marginTop: "2px" }}>
-                Nomad Mode · All systems go
+          {currentPage === "journal" ? (
+            <Journal isDark={isDark} />
+          ) : (
+            <>
+              {/* Page header */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                <div>
+                  <div style={{ fontSize: "18px", fontWeight: 500 }}>Dashboard</div>
+                  <div style={{ fontSize: "12px", color: isDark ? "#8fa3b8" : "#4d6278", marginTop: "2px" }}>
+                    Nomad Mode · All systems go
+                  </div>
+                </div>
+                <button style={{
+                  backgroundColor: "#c9922a", color: "#0f1923",
+                  border: "none", borderRadius: "8px",
+                  padding: "7px 14px", fontSize: "13px", fontWeight: 500, cursor: "pointer",
+                }}>
+                  + New entry
+                </button>
               </div>
-            </div>
-            <button style={{
-              backgroundColor: "#c9922a", color: "#0f1923",
-              border: "none", borderRadius: "8px",
-              padding: "7px 14px", fontSize: "13px", fontWeight: 500, cursor: "pointer",
-            }}>
-              + New entry
-            </button>
-          </div>
 
-          {/* Status bar */}
-          <div style={{
-            display: "flex", alignItems: "center", gap: "8px",
-            backgroundColor: isDark ? "#162030" : "#ffffff",
-            border: `0.5px solid ${isDark ? "#243347" : "#ccd8e4"}`,
-            borderRadius: "8px", padding: "8px 14px", marginBottom: "18px",
-          }}>
-            <div style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#1a7a4a" }} />
-            <span style={{ fontSize: "12px", color: isDark ? "#8fa3b8" : "#4d6278" }}>
-              Session unlocked · All data encrypted at rest
-            </span>
-            <span style={{ marginLeft: "auto", fontSize: "11px", color: "#c9922a" }}>
-              🔒 AES-256-GCM
-            </span>
-          </div>
+              {/* Status bar */}
+              <div style={{
+                display: "flex", alignItems: "center", gap: "8px",
+                backgroundColor: isDark ? "#162030" : "#ffffff",
+                border: `0.5px solid ${isDark ? "#243347" : "#ccd8e4"}`,
+                borderRadius: "8px", padding: "8px 14px", marginBottom: "18px",
+              }}>
+                <div style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#1a7a4a" }} />
+                <span style={{ fontSize: "12px", color: isDark ? "#8fa3b8" : "#4d6278" }}>
+                  Session unlocked · All data encrypted at rest
+                </span>
+                <span style={{ marginLeft: "auto", fontSize: "11px", color: "#c9922a" }}>
+                  🔒 AES-256-GCM
+                </span>
+              </div>
 
-          {/* Stat cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px", marginBottom: "18px" }}>
-            <StatCard label="Journal entries" value="24" sub="Last: yesterday" isDark={isDark} />
-            <StatCard label="Trip expenses" value="$1,840" sub="12 categories" isDark={isDark} />
-            <StatCard label="Active country" value="Portugal" sub="Lisbon · Low risk" isDark={isDark} />
-            <StatCard label="Packing lists" value="3" sub="1 active" isDark={isDark} />
-          </div>
+              {/* Stat cards */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px", marginBottom: "18px" }}>
+                <StatCard label="Journal entries" value="24" sub="Last: yesterday" isDark={isDark} />
+                <StatCard label="Trip expenses" value="$1,840" sub="12 categories" isDark={isDark} />
+                <StatCard label="Active country" value="Portugal" sub="Lisbon · Low risk" isDark={isDark} />
+                <StatCard label="Packing lists" value="3" sub="1 active" isDark={isDark} />
+              </div>
 
-          {/* Quick access */}
-          <div style={{ fontSize: "13px", fontWeight: 500, marginBottom: "10px", color: isDark ? "#c9922a" : "#b07d1a" }}>
-            ⚡ Quick access
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "18px" }}>
-            <FeatureCard label="Encrypted journal" desc="Private entries, encrypted locally with your passphrase" badge="Encrypted" isDark={isDark} />
-            <FeatureCard label="Country guide" desc="Border rules, scams, SIM laws for 18 countries" badge="18 countries" isDark={isDark} />
-            <FeatureCard label="Emergency toolkit" desc="Exit checklists, encrypted contacts, secure deletion" badge="Offline" isDark={isDark} />
-          </div>
+              {/* Quick access */}
+              <div style={{ fontSize: "13px", fontWeight: 500, marginBottom: "10px", color: isDark ? "#c9922a" : "#b07d1a" }}>
+                ⚡ Quick access
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "18px" }}>
+                <FeatureCard label="Encrypted journal" desc="Private entries, encrypted locally with your passphrase" badge="Encrypted" isDark={isDark} />
+                <FeatureCard label="Country guide" desc="Border rules, scams, SIM laws for 18 countries" badge="18 countries" isDark={isDark} />
+                <FeatureCard label="Emergency toolkit" desc="Exit checklists, encrypted contacts, secure deletion" badge="Offline" isDark={isDark} />
+              </div>
+            </>
+          )}
         </div>
 
       </div>
@@ -178,17 +186,20 @@ function NavSection({ label }: { label: string }) {
   );
 }
 
-function NavItem({ icon, label, isDark, active, badge }: {
-  icon: string; label: string; isDark: boolean; active?: boolean; badge?: string;
+function NavItem({ icon, label, isDark, active, badge, onClick }: {
+  icon: string; label: string; isDark: boolean; active?: boolean; badge?: string; onClick?: () => void;
 }) {
   return (
-    <div style={{
-      display: "flex", alignItems: "center", gap: "10px",
-      padding: "8px 16px", cursor: "pointer",
-      color: active ? "#e8b94a" : (isDark ? "#8fa3b8" : "#4d6278"),
-      borderLeft: active ? "2px solid #c9922a" : "2px solid transparent",
-      backgroundColor: active ? (isDark ? "#1d2d3f" : "#e8eef5") : "transparent",
-    }}>
+    <div
+      onClick={onClick}
+      style={{
+        display: "flex", alignItems: "center", gap: "10px",
+        padding: "8px 16px", cursor: "pointer",
+        color: active ? "#e8b94a" : (isDark ? "#8fa3b8" : "#4d6278"),
+        borderLeft: active ? "2px solid #c9922a" : "2px solid transparent",
+        backgroundColor: active ? (isDark ? "#1d2d3f" : "#e8eef5") : "transparent",
+      }}
+    >
       <span style={{ fontSize: "15px", width: "20px" }}>{icon}</span>
       <span style={{ fontSize: "13px" }}>{label}</span>
       {badge && (
