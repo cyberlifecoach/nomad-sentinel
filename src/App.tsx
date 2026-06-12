@@ -1,5 +1,6 @@
 import Journal from "./pages/Journal";
 import SetupWizard from "./pages/SetupWizard";
+import EmergencyToolkit from "./pages/EmergencyToolkit";
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
@@ -90,7 +91,7 @@ function App() {
         }}>
           <NavSection label="Security" />
           <NavItem icon="🛡" label="Setup wizard" isDark={isDark} active={currentPage === "setup"} onClick={() => setCurrentPage("setup")} />
-          <NavItem icon="⚠️" label="Emergency toolkit" isDark={isDark} badge="!" />
+          <NavItem icon="⚠️" label="Emergency toolkit" isDark={isDark} badge="!" active={currentPage === "emergency"} onClick={() => setCurrentPage("emergency")} />
           <NavItem icon="🔍" label="Metadata scrubber" isDark={isDark} />
 
           <NavSection label="Travel" />
@@ -120,9 +121,10 @@ function App() {
             <Journal isDark={isDark} />
           ) : currentPage === "setup" ? (
             <SetupWizard isDark={isDark} profileId={profileId} />
+          ) : currentPage === "emergency" ? (
+            <EmergencyToolkit isDark={isDark} profileId={profileId} />
           ) : (
             <>
-              {/* Page header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
                 <div>
                   <div style={{ fontSize: "18px", fontWeight: 500 }}>Dashboard</div>
@@ -139,7 +141,6 @@ function App() {
                 </button>
               </div>
 
-              {/* Status bar */}
               <div style={{
                 display: "flex", alignItems: "center", gap: "8px",
                 backgroundColor: isDark ? "#162030" : "#ffffff",
@@ -155,7 +156,6 @@ function App() {
                 </span>
               </div>
 
-              {/* Stat cards */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px", marginBottom: "18px" }}>
                 <StatCard label="Journal entries" value="24" sub="Last: yesterday" isDark={isDark} />
                 <StatCard label="Trip expenses" value="$1,840" sub="12 categories" isDark={isDark} />
@@ -163,7 +163,6 @@ function App() {
                 <StatCard label="Packing lists" value="3" sub="1 active" isDark={isDark} />
               </div>
 
-              {/* Quick access */}
               <div style={{ fontSize: "13px", fontWeight: 500, marginBottom: "10px", color: isDark ? "#c9922a" : "#b07d1a" }}>
                 ⚡ Quick access
               </div>
@@ -181,7 +180,6 @@ function App() {
   );
 }
 
-// Sub-components
 function NavSection({ label }: { label: string }) {
   return (
     <div style={{ padding: "8px 16px 4px", fontSize: "10px", fontWeight: 500, color: "#4d6278", letterSpacing: "0.08em", textTransform: "uppercase" }}>

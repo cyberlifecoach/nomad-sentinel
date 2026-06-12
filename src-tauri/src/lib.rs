@@ -16,9 +16,21 @@ use commands::setup::{
     get_setup_summary,
 };
 
+use commands::emergency::{
+    create_contact,
+    list_contacts,
+    get_contact,
+    delete_contact,
+    create_checklist_item,
+    list_checklist_items,
+    toggle_checklist_item,
+    delete_checklist_item,
+    reset_checklist,
+};
+
 #[tauri::command]
 fn get_app_version() -> String {
-    String::from("0.2.0")
+    String::from("0.3.0")
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -35,6 +47,15 @@ pub fn run() {
             get_setup_progress,
             toggle_setup_item,
             get_setup_summary,
+            create_contact,
+            list_contacts,
+            get_contact,
+            delete_contact,
+            create_checklist_item,
+            list_checklist_items,
+            toggle_checklist_item,
+            delete_checklist_item,
+            reset_checklist,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

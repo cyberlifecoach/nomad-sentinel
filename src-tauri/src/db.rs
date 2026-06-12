@@ -47,6 +47,26 @@ pub fn init_db(path: &PathBuf) -> Result<Connection> {
             updated_at  TEXT NOT NULL DEFAULT (datetime('now')),
             UNIQUE(profile_id, item_key)
         );
+
+        CREATE TABLE IF NOT EXISTS emergency_contacts (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            profile_id  INTEGER NOT NULL REFERENCES profiles(id),
+            label       TEXT NOT NULL,
+            ciphertext  TEXT NOT NULL,
+            nonce       TEXT NOT NULL,
+            created_at  TEXT NOT NULL DEFAULT (datetime('now'))
+        );
+
+        CREATE TABLE IF NOT EXISTS exit_checklist_items (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            profile_id  INTEGER NOT NULL REFERENCES profiles(id),
+            category    TEXT NOT NULL DEFAULT 'general',
+            label       TEXT NOT NULL,
+            completed   INTEGER NOT NULL DEFAULT 0,
+            sort_order  INTEGER NOT NULL DEFAULT 0,
+            created_at  TEXT NOT NULL DEFAULT (datetime('now')),
+            updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
+        );
     ")?;
 
     Ok(conn)
