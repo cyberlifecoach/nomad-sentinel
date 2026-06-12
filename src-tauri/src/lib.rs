@@ -10,6 +10,12 @@ use commands::journal::{
     delete_journal_entry,
 };
 
+use commands::setup::{
+    get_setup_progress,
+    toggle_setup_item,
+    get_setup_summary,
+};
+
 #[tauri::command]
 fn get_app_version() -> String {
     String::from("0.2.0")
@@ -26,6 +32,9 @@ pub fn run() {
             list_journal_entries,
             get_journal_entry,
             delete_journal_entry,
+            get_setup_progress,
+            toggle_setup_item,
+            get_setup_summary,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -38,6 +38,15 @@ pub fn init_db(path: &PathBuf) -> Result<Connection> {
             created_at  TEXT NOT NULL DEFAULT (datetime('now')),
             updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
         );
+
+        CREATE TABLE IF NOT EXISTS setup_progress (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            profile_id  INTEGER NOT NULL REFERENCES profiles(id),
+            item_key    TEXT NOT NULL,
+            completed   INTEGER NOT NULL DEFAULT 0,
+            updated_at  TEXT NOT NULL DEFAULT (datetime('now')),
+            UNIQUE(profile_id, item_key)
+        );
     ")?;
 
     Ok(conn)

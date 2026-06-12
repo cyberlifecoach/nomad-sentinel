@@ -1,4 +1,5 @@
 import Journal from "./pages/Journal";
+import SetupWizard from "./pages/SetupWizard";
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
@@ -6,6 +7,7 @@ function App() {
   const [version, setVersion] = useState("");
   const [isDark, setIsDark] = useState(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
+  const [profileId] = useState<number>(1);
 
   useEffect(() => {
     invoke<string>("get_app_version").then(setVersion);
@@ -87,7 +89,7 @@ function App() {
           overflowY: "auto",
         }}>
           <NavSection label="Security" />
-          <NavItem icon="🛡" label="Setup wizard" isDark={isDark} />
+          <NavItem icon="🛡" label="Setup wizard" isDark={isDark} active={currentPage === "setup"} onClick={() => setCurrentPage("setup")} />
           <NavItem icon="⚠️" label="Emergency toolkit" isDark={isDark} badge="!" />
           <NavItem icon="🔍" label="Metadata scrubber" isDark={isDark} />
 
@@ -116,6 +118,8 @@ function App() {
         }}>
           {currentPage === "journal" ? (
             <Journal isDark={isDark} />
+          ) : currentPage === "setup" ? (
+            <SetupWizard isDark={isDark} profileId={profileId} />
           ) : (
             <>
               {/* Page header */}
