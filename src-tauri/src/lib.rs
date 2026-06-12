@@ -27,6 +27,10 @@ use commands::emergency::{
     delete_checklist_item,
     reset_checklist,
 };
+use commands::scrubber::{
+    scan_exif,
+    scrub_file,
+};
 
 #[tauri::command]
 fn get_app_version() -> String {
@@ -36,6 +40,7 @@ fn get_app_version() -> String {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+    .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             get_app_version,
@@ -56,6 +61,8 @@ pub fn run() {
             toggle_checklist_item,
             delete_checklist_item,
             reset_checklist,
+            scan_exif,
+            scrub_file,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

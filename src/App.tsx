@@ -3,6 +3,7 @@ import SetupWizard from "./pages/SetupWizard";
 import EmergencyToolkit from "./pages/EmergencyToolkit";
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import MetadataScrubber from "./pages/MetadataScrubber";
 
 function App() {
   const [version, setVersion] = useState("");
@@ -92,7 +93,7 @@ function App() {
           <NavSection label="Security" />
           <NavItem icon="🛡" label="Setup wizard" isDark={isDark} active={currentPage === "setup"} onClick={() => setCurrentPage("setup")} />
           <NavItem icon="⚠️" label="Emergency toolkit" isDark={isDark} badge="!" active={currentPage === "emergency"} onClick={() => setCurrentPage("emergency")} />
-          <NavItem icon="🔍" label="Metadata scrubber" isDark={isDark} />
+          <NavItem icon="🔍" label="Metadata scrubber" isDark={isDark} active={currentPage === "scrubber"} onClick={() => setCurrentPage("scrubber")} />
 
           <NavSection label="Travel" />
           <NavItem icon="📊" label="Dashboard" isDark={isDark} active={currentPage === "dashboard"} onClick={() => setCurrentPage("dashboard")} />
@@ -117,13 +118,15 @@ function App() {
           backgroundColor: isDark ? "#0f1923" : "#f0f4f8",
           padding: "20px", overflowY: "auto",
         }}>
-          {currentPage === "journal" ? (
-            <Journal isDark={isDark} />
-          ) : currentPage === "setup" ? (
-            <SetupWizard isDark={isDark} profileId={profileId} />
-          ) : currentPage === "emergency" ? (
-            <EmergencyToolkit isDark={isDark} profileId={profileId} />
-          ) : (
+         {currentPage === "journal" ? (
+  <Journal isDark={isDark} />
+) : currentPage === "setup" ? (
+  <SetupWizard isDark={isDark} profileId={profileId} />
+) : currentPage === "emergency" ? (
+  <EmergencyToolkit isDark={isDark} profileId={profileId} />
+) : currentPage === "scrubber" ? (
+  <MetadataScrubber isDark={isDark} />
+) : (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
                 <div>
