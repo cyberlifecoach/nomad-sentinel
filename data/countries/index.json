@@ -1,0 +1,239 @@
+{
+  "version": "1.0",
+  "countries": [
+    {
+      "code": "US",
+      "name": "United States",
+      "flag": "🇺🇸",
+      "risk_level": "low",
+      "items": [
+        { "id": "us1", "category": "Border & Entry", "note": "No visa required for citizens. ESTA required for Visa Waiver Program countries." },
+        { "id": "us2", "category": "SIM & Connectivity", "note": "Major carriers: AT&T, T-Mobile, Verizon. Prepaid SIMs available at airports and convenience stores." },
+        { "id": "us3", "category": "Cyber Risk", "note": "Public WiFi widely available but often unsecured. Always use VPN on hotel and café networks." },
+        { "id": "us4", "category": "Local Scams", "note": "Common: fake charity collectors, ticket scalpers near tourist sites, rigged taxi meters in some cities." },
+        { "id": "us5", "category": "Legal Notes", "note": "Encryption tools are legal. Photography restrictions vary by state and venue. CBP can inspect devices at the border." }
+      ]
+    },
+    {
+      "code": "CA",
+      "name": "Canada",
+      "flag": "🇨🇦",
+      "risk_level": "low",
+      "items": [
+        { "id": "ca1", "category": "Border & Entry", "note": "eTA required for visa-exempt foreign nationals flying into Canada. Not required for US citizens." },
+        { "id": "ca2", "category": "SIM & Connectivity", "note": "Major carriers: Rogers, Bell, Telus. Canada has some of the highest mobile data costs in the world — buy a prepaid plan." },
+        { "id": "ca3", "category": "Cyber Risk", "note": "Low risk. Public WiFi common and generally reliable. Use VPN on shared networks as standard practice." },
+        { "id": "ca4", "category": "Local Scams", "note": "Common: overpayment scams, fake rental listings in major cities, grandparent scams targeting tourists." },
+        { "id": "ca5", "category": "Legal Notes", "note": "CBSA officers can demand device passwords at the border. Encryption tools are fully legal." }
+      ]
+    },
+    {
+      "code": "MX",
+      "name": "Mexico",
+      "flag": "🇲🇽",
+      "risk_level": "medium",
+      "items": [
+        { "id": "mx1", "category": "Border & Entry", "note": "No visa required for most nationalities for stays under 180 days. Keep your FMM tourist card — you need it to exit." },
+        { "id": "mx2", "category": "SIM & Connectivity", "note": "Telcel has the best national coverage. Prepaid SIMs available everywhere. Data is affordable." },
+        { "id": "mx3", "category": "Cyber Risk", "note": "Medium risk in tourist areas. Avoid ATMs in non-bank locations — skimming is common. Use VPN on all public networks." },
+        { "id": "mx4", "category": "Local Scams", "note": "Common: taxi overcharging (use Uber or InDriver), fake police asking for bribes, timeshare hard-sells." },
+        { "id": "mx5", "category": "Legal Notes", "note": "VPN use is legal. Carrying large amounts of cash can attract scrutiny. Photography of military installations is prohibited." }
+      ]
+    },
+    {
+      "code": "CR",
+      "name": "Costa Rica",
+      "flag": "🇨🇷",
+      "risk_level": "low",
+      "items": [
+        { "id": "cr1", "category": "Border & Entry", "note": "No visa required for most nationalities for up to 90 days. Onward ticket may be requested at entry." },
+        { "id": "cr2", "category": "SIM & Connectivity", "note": "Kolbi, Claro, and Movistar all offer prepaid SIMs. Coverage can be spotty in remote areas." },
+        { "id": "cr3", "category": "Cyber Risk", "note": "Low to medium. Phishing and card skimming have increased. Use contactless payments where possible." },
+        { "id": "cr4", "category": "Local Scams", "note": "Common: taxi overcharging, fake tour operators, distraction theft in crowded markets." },
+        { "id": "cr5", "category": "Legal Notes", "note": "VPN use is legal. Costa Rica is considered one of the safer Central American destinations for nomads." }
+      ]
+    },
+    {
+      "code": "PA",
+      "name": "Panama",
+      "flag": "🇵🇦",
+      "risk_level": "low",
+      "items": [
+        { "id": "pa1", "category": "Border & Entry", "note": "No visa required for most nationalities for up to 180 days. Proof of onward travel often requested." },
+        { "id": "pa2", "category": "SIM & Connectivity", "note": "Claro and Digicel are the main carriers. Prepaid SIMs cheap and widely available." },
+        { "id": "pa3", "category": "Cyber Risk", "note": "Low to medium. Panama City has solid infrastructure. Use VPN on hotel networks as standard." },
+        { "id": "pa4", "category": "Local Scams", "note": "Common: taxi overcharging in Panama City, currency confusion with USD (Panama uses USD)." },
+        { "id": "pa5", "category": "Legal Notes", "note": "Panama Friendly Nations Visa and digital nomad visa options available for longer stays. VPN use is legal." }
+      ]
+    },
+    {
+      "code": "GB",
+      "name": "United Kingdom",
+      "flag": "🇬🇧",
+      "risk_level": "low",
+      "items": [
+        { "id": "gb1", "category": "Border & Entry", "note": "Visa-free for most nationalities up to 6 months. ETA required from 2025 for many countries." },
+        { "id": "gb2", "category": "SIM & Connectivity", "note": "Three, EE, Vodafone, O2. Prepaid SIMs cheap — Three offers good international data plans." },
+        { "id": "gb3", "category": "Cyber Risk", "note": "Low risk. One of the most surveilled countries in the world via CCTV — not a cyber risk but worth knowing." },
+        { "id": "gb4", "category": "Local Scams", "note": "Common: ticket machine distraction theft, fake Wi-Fi hotspots in tourist areas, overpriced currency exchanges." },
+        { "id": "gb5", "category": "Legal Notes", "note": "Investigatory Powers Act gives broad surveillance authority. Encryption is legal but authorities can compel decryption keys." }
+      ]
+    },
+    {
+      "code": "PT",
+      "name": "Portugal",
+      "flag": "🇵🇹",
+      "risk_level": "low",
+      "items": [
+        { "id": "pt1", "category": "Border & Entry", "note": "Schengen zone — 90 days in any 180-day period for most non-EU nationalities. Digital Nomad Visa available for longer stays." },
+        { "id": "pt2", "category": "SIM & Connectivity", "note": "NOS, MEO, Vodafone Portugal. Excellent 4G/5G coverage. Affordable prepaid SIMs at the airport." },
+        { "id": "pt3", "category": "Cyber Risk", "note": "Low risk. Lisbon and Porto have strong digital infrastructure. Public WiFi widely available." },
+        { "id": "pt4", "category": "Local Scams", "note": "Common: overpriced restaurants near tourist sites, fake ticket sellers for trams and attractions." },
+        { "id": "pt5", "category": "Legal Notes", "note": "One of the most nomad-friendly countries in Europe. VPN use is fully legal. NHR tax regime may benefit long-term stays." }
+      ]
+    },
+    {
+      "code": "ES",
+      "name": "Spain",
+      "flag": "🇪🇸",
+      "risk_level": "low",
+      "items": [
+        { "id": "es1", "category": "Border & Entry", "note": "Schengen zone. Digital Nomad Visa available since 2023 for non-EU remote workers." },
+        { "id": "es2", "category": "SIM & Connectivity", "note": "Movistar, Orange, Vodafone Spain. Prepaid SIMs affordable. Excellent urban coverage." },
+        { "id": "es3", "category": "Cyber Risk", "note": "Low risk. Pickpocketing is common in Barcelona — secure your devices physically." },
+        { "id": "es4", "category": "Local Scams", "note": "Common: Barcelona card game scams, fake petitioners, distraction theft on La Rambla." },
+        { "id": "es5", "category": "Legal Notes", "note": "VPN use is legal. Some geo-blocked content. Anti-protest laws restrict some public photography." }
+      ]
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "flag": "🇩🇪",
+      "risk_level": "low",
+      "items": [
+        { "id": "de1", "category": "Border & Entry", "note": "Schengen zone. Freelance visa available for non-EU workers planning to stay longer." },
+        { "id": "de2", "category": "SIM & Connectivity", "note": "Telekom, Vodafone, O2. Coverage can be patchy in rural areas — Telekom has the best reach." },
+        { "id": "de3", "category": "Cyber Risk", "note": "Low risk. Strong data protection culture (GDPR origin). Public WiFi less prevalent than other EU countries." },
+        { "id": "de4", "category": "Local Scams", "note": "Common: fake charity workers, card skimming at tourist ATMs, overpriced currency exchange kiosks." },
+        { "id": "de5", "category": "Legal Notes", "note": "Strict privacy laws — good for nomads. VPN use is legal. Some content geo-blocked via GEMA." }
+      ]
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "flag": "🇫🇷",
+      "risk_level": "low",
+      "items": [
+        { "id": "fr1", "category": "Border & Entry", "note": "Schengen zone. Talent Passport visa available for skilled remote workers." },
+        { "id": "fr2", "category": "SIM & Connectivity", "note": "Orange, SFR, Bouygues, Free Mobile. Free Mobile offers excellent value prepaid." },
+        { "id": "fr3", "category": "Cyber Risk", "note": "Low risk. Be cautious on Paris metro public WiFi — use VPN." },
+        { "id": "fr4", "category": "Local Scams", "note": "Common: gold ring scam near the Eiffel Tower, petition scams, distraction pickpocketing on the metro." },
+        { "id": "fr5", "category": "Legal Notes", "note": "VPN use is legal. HADOPI anti-piracy law monitors torrenting. Photography of people requires consent in some contexts." }
+      ]
+    },
+    {
+      "code": "GE",
+      "name": "Georgia",
+      "flag": "🇬🇪",
+      "risk_level": "low",
+      "items": [
+        { "id": "ge1", "category": "Border & Entry", "note": "Visa-free for 1 year for most nationalities including US, EU, UK. One of the most open entry policies in the world." },
+        { "id": "ge2", "category": "SIM & Connectivity", "note": "Magti, Geocell (Silknet), Beeline. Cheap and fast. Tbilisi has excellent connectivity." },
+        { "id": "ge3", "category": "Cyber Risk", "note": "Low to medium. Growing nomad infrastructure. Use VPN as standard — some Russian services are accessible here." },
+        { "id": "ge4", "category": "Local Scams", "note": "Relatively rare. Watch for taxi overcharging at Tbilisi airport. Use Bolt or Yandex Go." },
+        { "id": "ge5", "category": "Legal Notes", "note": "Very nomad-friendly. No income tax for foreign-sourced income in many cases. VPN use is legal." }
+      ]
+    },
+    {
+      "code": "TR",
+      "name": "Turkey",
+      "flag": "🇹🇷",
+      "risk_level": "medium",
+      "items": [
+        { "id": "tr1", "category": "Border & Entry", "note": "e-Visa required for many nationalities. Check eligibility at evisa.gov.tr. Stays up to 90 days." },
+        { "id": "tr2", "category": "SIM & Connectivity", "note": "Turkcell, Vodafone Turkey, Türk Telekom. Tourist SIMs must be registered — bring your passport." },
+        { "id": "tr3", "category": "Cyber Risk", "note": "Medium risk. Turkey blocks some social media platforms intermittently. VPN essential." },
+        { "id": "tr4", "category": "Local Scams", "note": "Common: Istanbul carpet shop pressure sales, shoe shine drop scam, taxi meter fraud." },
+        { "id": "tr5", "category": "Legal Notes", "note": "VPN use is in a legal gray area — technically restricted but widely used. Social media criticism of the government carries legal risk." }
+      ]
+    },
+    {
+      "code": "GR",
+      "name": "Greece",
+      "flag": "🇬🇷",
+      "risk_level": "low",
+      "items": [
+        { "id": "gr1", "category": "Border & Entry", "note": "Schengen zone. Digital Nomad Visa available for non-EU remote workers (up to 12 months, renewable)." },
+        { "id": "gr2", "category": "SIM & Connectivity", "note": "Cosmote, Vodafone Greece, Wind Hellas. Good coverage on the mainland, spottier on smaller islands." },
+        { "id": "gr3", "category": "Cyber Risk", "note": "Low risk. Public WiFi available in most cafés and tourist areas. Use VPN as standard." },
+        { "id": "gr4", "category": "Local Scams", "note": "Common: Athens taxi overcharging, fake ticket sellers for Acropolis, bar scams targeting solo travelers." },
+        { "id": "gr5", "category": "Legal Notes", "note": "VPN use is legal. Photography of military sites is prohibited. Greece has one of Europe's more affordable nomad visa programs." }
+      ]
+    },
+    {
+      "code": "DK",
+      "name": "Denmark",
+      "flag": "🇩🇰",
+      "risk_level": "low",
+      "items": [
+        { "id": "dk1", "category": "Border & Entry", "note": "Schengen zone. Denmark does not currently offer a dedicated digital nomad visa." },
+        { "id": "dk2", "category": "SIM & Connectivity", "note": "TDC, Telenor Denmark, Telia. Excellent coverage and fast speeds. Prepaid SIMs at 7-Eleven." },
+        { "id": "dk3", "category": "Cyber Risk", "note": "Very low risk. Strong privacy culture. Public WiFi widely available and generally secure." },
+        { "id": "dk4", "category": "Local Scams", "note": "Very rare. Watch for overpriced tourist restaurants near Nyhavn and Tivoli." },
+        { "id": "dk5", "category": "Legal Notes", "note": "VPN use is fully legal. Denmark is one of the safest countries for digital nomads overall." }
+      ]
+    },
+    {
+      "code": "TH",
+      "name": "Thailand",
+      "flag": "🇹🇭",
+      "risk_level": "low",
+      "items": [
+        { "id": "th1", "category": "Border & Entry", "note": "Visa exemption for many nationalities (30–60 days). LTR Visa (Long-Term Resident) available for remote workers." },
+        { "id": "th2", "category": "SIM & Connectivity", "note": "AIS, DTAC (now merged with True), True Move. Tourist SIMs cheap and fast at the airport." },
+        { "id": "th3", "category": "Cyber Risk", "note": "Low to medium. Some websites blocked. VPN recommended — widely used without legal issues in practice." },
+        { "id": "th4", "category": "Local Scams", "note": "Common: tuk-tuk gem scam, temple closed scam, jet ski damage scam in Phuket, taxi meter refusals." },
+        { "id": "th5", "category": "Legal Notes", "note": "Lèse-majesté law — criticism of the monarchy carries serious criminal penalties. VPN use is common but technically restricted." }
+      ]
+    },
+    {
+      "code": "VN",
+      "name": "Vietnam",
+      "flag": "🇻🇳",
+      "risk_level": "low",
+      "items": [
+        { "id": "vn1", "category": "Border & Entry", "note": "E-visa available for most nationalities (90 days, single or multiple entry). Visa on arrival available at select airports." },
+        { "id": "vn2", "category": "SIM & Connectivity", "note": "Viettel, Mobifone, Vinaphone. Fast and cheap data. SIMs require passport registration." },
+        { "id": "vn3", "category": "Cyber Risk", "note": "Medium risk. Government monitors internet activity. Facebook and Google are accessible but surveilled. Use VPN." },
+        { "id": "vn4", "category": "Local Scams", "note": "Common: motorbike taxi overcharging, fake travel agencies, cyclo tour bait-and-switch pricing." },
+        { "id": "vn5", "category": "Legal Notes", "note": "Cybersecurity Law requires data localization for some services. Criticism of the government online carries legal risk. VPN use is common." }
+      ]
+    },
+    {
+      "code": "KH",
+      "name": "Cambodia",
+      "flag": "🇰🇭",
+      "risk_level": "medium",
+      "items": [
+        { "id": "kh1", "category": "Border & Entry", "note": "e-Visa available for most nationalities (30 days). Visa on arrival also available at major entry points." },
+        { "id": "kh2", "category": "SIM & Connectivity", "note": "Cellcard, Smart, Metfone. Cheap data. SIMs available at the airport without strict registration." },
+        { "id": "kh3", "category": "Cyber Risk", "note": "Medium risk. Government internet surveillance increasing. Use VPN. Some services blocked." },
+        { "id": "kh4", "category": "Local Scams", "note": "Common: tuk-tuk overcharging, fake NGO donation collectors, rigged casino games targeting tourists." },
+        { "id": "kh5", "category": "Legal Notes", "note": "Avoid any criticism of the government or royal family online. Scam compound operations in border regions — stay away from unsolicited job offers." }
+      ]
+    },
+    {
+      "code": "KR",
+      "name": "South Korea",
+      "flag": "🇰🇷",
+      "risk_level": "low",
+      "items": [
+        { "id": "kr1", "category": "Border & Entry", "note": "Visa-free for most nationalities (90 days). K-ETA required for some countries. Digital Nomad Visa (Workation Visa) launched in 2023." },
+        { "id": "kr2", "category": "SIM & Connectivity", "note": "SK Telecom, KT, LG U+. World-class speeds. Pocket WiFi rental popular at Incheon airport." },
+        { "id": "kr3", "category": "Cyber Risk", "note": "Low risk. Some adult content and gambling sites are blocked. VPN works without issues." },
+        { "id": "kr4", "category": "Local Scams", "note": "Very rare. Watch for overpriced tourist restaurants in Myeongdong and Insadong areas." },
+        { "id": "kr5", "category": "Legal Notes", "note": "VPN use is legal. Online criticism of North Korea is expected — criticism of South Korean institutions carries fewer risks. Photography near military bases restricted." }
+      ]
+    }
+  ]
+}

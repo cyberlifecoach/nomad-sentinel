@@ -1,0 +1,91 @@
+{
+  "version": "1.0",
+  "templates": [
+    {
+      "id": "beach",
+      "name": "Beach / Tropical",
+      "icon": "🏖️",
+      "items": [
+        { "id": "b1", "label": "Sunscreen SPF 50+", "category": "Health" },
+        { "id": "b2", "label": "Reef-safe sunscreen", "category": "Health" },
+        { "id": "b3", "label": "Insect repellent", "category": "Health" },
+        { "id": "b4", "label": "After-sun lotion", "category": "Health" },
+        { "id": "b5", "label": "Swimsuit (x2)", "category": "Clothing" },
+        { "id": "b6", "label": "Rash guard", "category": "Clothing" },
+        { "id": "b7", "label": "Flip flops", "category": "Clothing" },
+        { "id": "b8", "label": "Light cover-up", "category": "Clothing" },
+        { "id": "b9", "label": "Dry bag", "category": "Gear" },
+        { "id": "b10", "label": "Waterproof phone case", "category": "Gear" },
+        { "id": "b11", "label": "Snorkel gear", "category": "Gear" },
+        { "id": "b12", "label": "Reusable water bottle", "category": "Gear" },
+        { "id": "b13", "label": "Passport + copies", "category": "Documents" },
+        { "id": "b14", "label": "Travel insurance docs", "category": "Documents" },
+        { "id": "b15", "label": "VPN configured", "category": "Security" },
+        { "id": "b16", "label": "Device encryption enabled", "category": "Security" }
+      ]
+    },
+    {
+      "id": "city",
+      "name": "City / Urban",
+      "icon": "🏙️",
+      "items": [
+        { "id": "c1", "label": "Comfortable walking shoes", "category": "Clothing" },
+        { "id": "c2", "label": "Smart casual outfit", "category": "Clothing" },
+        { "id": "c3", "label": "Light rain jacket", "category": "Clothing" },
+        { "id": "c4", "label": "Day backpack", "category": "Gear" },
+        { "id": "c5", "label": "Portable charger", "category": "Gear" },
+        { "id": "c6", "label": "Universal power adapter", "category": "Gear" },
+        { "id": "c7", "label": "Transit card or cash", "category": "Finance" },
+        { "id": "c8", "label": "Offline maps downloaded", "category": "Tech" },
+        { "id": "c9", "label": "Passport + copies", "category": "Documents" },
+        { "id": "c10", "label": "Hotel confirmation", "category": "Documents" },
+        { "id": "c11", "label": "VPN configured", "category": "Security" },
+        { "id": "c12", "label": "Device encryption enabled", "category": "Security" },
+        { "id": "c13", "label": "Anti-theft bag or lock", "category": "Security" },
+        { "id": "c14", "label": "Emergency contacts saved offline", "category": "Security" }
+      ]
+    },
+    {
+      "id": "workation",
+      "name": "Workation / Remote Work",
+      "icon": "💻",
+      "items": [
+        { "id": "w1", "label": "Laptop + charger", "category": "Tech" },
+        { "id": "w2", "label": "Laptop stand", "category": "Tech" },
+        { "id": "w3", "label": "External keyboard + mouse", "category": "Tech" },
+        { "id": "w4", "label": "Noise-cancelling headphones", "category": "Tech" },
+        { "id": "w5", "label": "Portable monitor (optional)", "category": "Tech" },
+        { "id": "w6", "label": "USB hub", "category": "Tech" },
+        { "id": "w7", "label": "Portable WiFi / SIM card", "category": "Tech" },
+        { "id": "w8", "label": "VPN active on all devices", "category": "Security" },
+        { "id": "w9", "label": "2FA enabled on work accounts", "category": "Security" },
+        { "id": "w10", "label": "Encrypted backup drive", "category": "Security" },
+        { "id": "w11", "label": "Work visa / permit docs", "category": "Documents" },
+        { "id": "w12", "label": "Tax residency notes", "category": "Documents" },
+        { "id": "w13", "label": "Co-working space booked", "category": "Planning" },
+        { "id": "w14", "label": "Time zone overlap confirmed with team", "category": "Planning" }
+      ]
+    },
+    {
+      "id": "high-risk",
+      "name": "High-Risk / Journalist",
+      "icon": "🛡️",
+      "items": [
+        { "id": "h1", "label": "Encrypted phone (GrapheneOS or hardened)", "category": "Security" },
+        { "id": "h2", "label": "VPN + Tor configured", "category": "Security" },
+        { "id": "h3", "label": "Burner SIM card", "category": "Security" },
+        { "id": "h4", "label": "Faraday bag for devices", "category": "Security" },
+        { "id": "h5", "label": "Emergency contacts encrypted", "category": "Security" },
+        { "id": "h6", "label": "Exit plan documented", "category": "Security" },
+        { "id": "h7", "label": "Metadata scrubbed from all files", "category": "Security" },
+        { "id": "h8", "label": "Encrypted backup off-device", "category": "Security" },
+        { "id": "h9", "label": "Press credentials", "category": "Documents" },
+        { "id": "h10", "label": "Embassy contact info saved offline", "category": "Documents" },
+        { "id": "h11", "label": "Travel insurance with evacuation coverage", "category": "Documents" },
+        { "id": "h12", "label": "Cash in local currency", "category": "Finance" },
+        { "id": "h13", "label": "First aid kit", "category": "Health" },
+        { "id": "h14", "label": "Signal app installed and contacts synced", "category": "Comms" }
+      ]
+    }
+  ]
+}

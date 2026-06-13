@@ -4,6 +4,9 @@ import EmergencyToolkit from "./pages/EmergencyToolkit";
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import MetadataScrubber from "./pages/MetadataScrubber";
+import PackingChecklists from "./pages/PackingChecklists";
+import CountryChecklists from "./pages/CountryChecklists";
+import Phrasebook from "./pages/Phrasebook";
 
 function App() {
   const [version, setVersion] = useState("");
@@ -98,10 +101,10 @@ function App() {
           <NavSection label="Travel" />
           <NavItem icon="📊" label="Dashboard" isDark={isDark} active={currentPage === "dashboard"} onClick={() => setCurrentPage("dashboard")} />
           <NavItem icon="📓" label="Journal" isDark={isDark} active={currentPage === "journal"} onClick={() => setCurrentPage("journal")} />
-          <NavItem icon="✅" label="Packing lists" isDark={isDark} />
+          <NavItem icon="✅" label="Packing lists" isDark={isDark} active={currentPage === "checklists"} onClick={() => setCurrentPage("checklists")} />
           <NavItem icon="💰" label="Expenses" isDark={isDark} />
-          <NavItem icon="🌍" label="Country guide" isDark={isDark} />
-          <NavItem icon="💬" label="Phrasebook" isDark={isDark} />
+          <NavItem icon="🌍" label="Country guide" isDark={isDark} active={currentPage === "countries"} onClick={() => setCurrentPage("countries")} />
+          <NavItem icon="💬" label="Phrasebook" isDark={isDark} active={currentPage === "phrasebook"} onClick={() => setCurrentPage("phrasebook")} />
 
           <div style={{
             marginTop: "auto", paddingTop: "12px",
@@ -126,6 +129,12 @@ function App() {
   <EmergencyToolkit isDark={isDark} profileId={profileId} />
 ) : currentPage === "scrubber" ? (
   <MetadataScrubber isDark={isDark} />
+) : currentPage === "checklists" ? (
+  <PackingChecklists />
+) : currentPage === "countries" ? (
+  <CountryChecklists />
+) : currentPage === "phrasebook" ? (
+  <Phrasebook />
 ) : (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>

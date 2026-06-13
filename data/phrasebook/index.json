@@ -1,0 +1,93 @@
+{
+  "version": "1.0",
+  "languages": [
+    {
+      "code": "es",
+      "name": "Spanish",
+      "flag": "🇪🇸",
+      "phrases": [
+        { "id": "es_g1", "scenario": "Greetings", "phrase": "Hello", "translation": "Hola", "pronunciation": "OH-lah" },
+        { "id": "es_g2", "scenario": "Greetings", "phrase": "Good morning", "translation": "Buenos días", "pronunciation": "BWEH-nos DEE-ahs" },
+        { "id": "es_g3", "scenario": "Greetings", "phrase": "Thank you", "translation": "Gracias", "pronunciation": "GRAH-syahs" },
+        { "id": "es_g4", "scenario": "Greetings", "phrase": "Please", "translation": "Por favor", "pronunciation": "por fah-VOR" },
+        { "id": "es_g5", "scenario": "Greetings", "phrase": "Excuse me", "translation": "Perdón", "pronunciation": "pehr-DON" },
+        { "id": "es_e1", "scenario": "Emergency", "phrase": "Help!", "translation": "¡Ayuda!", "pronunciation": "ah-YOO-dah" },
+        { "id": "es_e2", "scenario": "Emergency", "phrase": "Call the police", "translation": "Llame a la policía", "pronunciation": "YAH-meh ah lah poh-lee-SEE-ah" },
+        { "id": "es_e3", "scenario": "Emergency", "phrase": "I need a doctor", "translation": "Necesito un médico", "pronunciation": "neh-seh-SEE-toh oon MEH-dee-koh" },
+        { "id": "es_e4", "scenario": "Emergency", "phrase": "I lost my passport", "translation": "Perdí mi pasaporte", "pronunciation": "pehr-DEE mee pah-sah-POR-teh" },
+        { "id": "es_t1", "scenario": "Transport", "phrase": "Where is the airport?", "translation": "¿Dónde está el aeropuerto?", "pronunciation": "DON-deh es-TAH el ah-eh-roh-PWEHR-toh" },
+        { "id": "es_t2", "scenario": "Transport", "phrase": "How much does it cost?", "translation": "¿Cuánto cuesta?", "pronunciation": "KWAHN-toh KWES-tah" },
+        { "id": "es_t3", "scenario": "Transport", "phrase": "Take me to this address", "translation": "Llévame a esta dirección", "pronunciation": "YEH-vah-meh ah ES-tah dee-rek-SYON" },
+        { "id": "es_s1", "scenario": "Shopping", "phrase": "How much is this?", "translation": "¿Cuánto vale esto?", "pronunciation": "KWAHN-toh VAH-leh ES-toh" },
+        { "id": "es_s2", "scenario": "Shopping", "phrase": "Too expensive", "translation": "Muy caro", "pronunciation": "MWEE KAH-roh" },
+        { "id": "es_s3", "scenario": "Shopping", "phrase": "Do you accept cards?", "translation": "¿Acepta tarjetas?", "pronunciation": "ah-SEP-tah tar-HEH-tahs" }
+      ]
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "flag": "🇫🇷",
+      "phrases": [
+        { "id": "fr_g1", "scenario": "Greetings", "phrase": "Hello", "translation": "Bonjour", "pronunciation": "bon-ZHOOR" },
+        { "id": "fr_g2", "scenario": "Greetings", "phrase": "Thank you", "translation": "Merci", "pronunciation": "mehr-SEE" },
+        { "id": "fr_g3", "scenario": "Greetings", "phrase": "Please", "translation": "S'il vous plaît", "pronunciation": "seel voo PLAY" },
+        { "id": "fr_g4", "scenario": "Greetings", "phrase": "Excuse me", "translation": "Excusez-moi", "pronunciation": "ex-koo-ZAY mwah" },
+        { "id": "fr_e1", "scenario": "Emergency", "phrase": "Help!", "translation": "Au secours!", "pronunciation": "oh suh-KOOR" },
+        { "id": "fr_e2", "scenario": "Emergency", "phrase": "Call the police", "translation": "Appelez la police", "pronunciation": "ah-puh-LAY lah poh-LEES" },
+        { "id": "fr_e3", "scenario": "Emergency", "phrase": "I need a doctor", "translation": "J'ai besoin d'un médecin", "pronunciation": "zhay buh-ZWAN dun mayd-SAN" },
+        { "id": "fr_e4", "scenario": "Emergency", "phrase": "I lost my passport", "translation": "J'ai perdu mon passeport", "pronunciation": "zhay pehr-DU mon pas-POR" },
+        { "id": "fr_t1", "scenario": "Transport", "phrase": "Where is the airport?", "translation": "Où est l'aéroport?", "pronunciation": "oo ay lah-ay-ro-POR" },
+        { "id": "fr_t2", "scenario": "Transport", "phrase": "How much does it cost?", "translation": "Combien ça coûte?", "pronunciation": "kom-BYAN sah KOOT" },
+        { "id": "fr_s1", "scenario": "Shopping", "phrase": "Too expensive", "translation": "Trop cher", "pronunciation": "troh SHEHR" },
+        { "id": "fr_s2", "scenario": "Shopping", "phrase": "Do you accept cards?", "translation": "Acceptez-vous les cartes?", "pronunciation": "ak-sep-TAY voo lay KART" }
+      ]
+    },
+    {
+      "code": "de",
+      "name": "German",
+      "flag": "🇩🇪",
+      "phrases": [
+        { "id": "de_g1", "scenario": "Greetings", "phrase": "Hello", "translation": "Hallo", "pronunciation": "HAH-loh" },
+        { "id": "de_g2", "scenario": "Greetings", "phrase": "Thank you", "translation": "Danke", "pronunciation": "DAHN-keh" },
+        { "id": "de_g3", "scenario": "Greetings", "phrase": "Please", "translation": "Bitte", "pronunciation": "BIT-teh" },
+        { "id": "de_g4", "scenario": "Greetings", "phrase": "Excuse me", "translation": "Entschuldigung", "pronunciation": "ent-SHUL-di-goong" },
+        { "id": "de_e1", "scenario": "Emergency", "phrase": "Help!", "translation": "Hilfe!", "pronunciation": "HIL-feh" },
+        { "id": "de_e2", "scenario": "Emergency", "phrase": "Call the police", "translation": "Rufen Sie die Polizei", "pronunciation": "ROO-fen zee dee po-li-TSAI" },
+        { "id": "de_e3", "scenario": "Emergency", "phrase": "I need a doctor", "translation": "Ich brauche einen Arzt", "pronunciation": "ikh BROW-kheh AI-nen artst" },
+        { "id": "de_t1", "scenario": "Transport", "phrase": "Where is the airport?", "translation": "Wo ist der Flughafen?", "pronunciation": "vo ist dehr FLOOK-hah-fen" },
+        { "id": "de_t2", "scenario": "Transport", "phrase": "How much does it cost?", "translation": "Was kostet das?", "pronunciation": "vas KOS-tet das" },
+        { "id": "de_s1", "scenario": "Shopping", "phrase": "Too expensive", "translation": "Zu teuer", "pronunciation": "tsoo TOY-er" }
+      ]
+    },
+    {
+      "code": "th",
+      "name": "Thai",
+      "flag": "🇹🇭",
+      "phrases": [
+        { "id": "th_g1", "scenario": "Greetings", "phrase": "Hello", "translation": "สวัสดี (Sawasdee)", "pronunciation": "sah-WAT-dee" },
+        { "id": "th_g2", "scenario": "Greetings", "phrase": "Thank you", "translation": "ขอบคุณ (Khob khun)", "pronunciation": "kop-KOON" },
+        { "id": "th_g3", "scenario": "Greetings", "phrase": "Please", "translation": "กรุณา (Garuna)", "pronunciation": "gah-roo-NAH" },
+        { "id": "th_e1", "scenario": "Emergency", "phrase": "Help!", "translation": "ช่วยด้วย (Chuay duay)", "pronunciation": "CHOO-ay DOO-ay" },
+        { "id": "th_e2", "scenario": "Emergency", "phrase": "Call the police", "translation": "เรียกตำรวจ (Riak tamruat)", "pronunciation": "REE-ak tam-RUAT" },
+        { "id": "th_e3", "scenario": "Emergency", "phrase": "I need a doctor", "translation": "ต้องการหมอ (Tong gan mor)", "pronunciation": "tong-GAN MOR" },
+        { "id": "th_t1", "scenario": "Transport", "phrase": "How much does it cost?", "translation": "เท่าไหร่ (Tao rai)", "pronunciation": "TAO-rai" },
+        { "id": "th_t2", "scenario": "Transport", "phrase": "Too expensive", "translation": "แพงไป (Paeng pai)", "pronunciation": "PENG-pai" }
+      ]
+    },
+    {
+      "code": "vi",
+      "name": "Vietnamese",
+      "flag": "🇻🇳",
+      "phrases": [
+        { "id": "vi_g1", "scenario": "Greetings", "phrase": "Hello", "translation": "Xin chào", "pronunciation": "sin CHOW" },
+        { "id": "vi_g2", "scenario": "Greetings", "phrase": "Thank you", "translation": "Cảm ơn", "pronunciation": "gam UHN" },
+        { "id": "vi_g3", "scenario": "Greetings", "phrase": "Please", "translation": "Làm ơn", "pronunciation": "lahm UHN" },
+        { "id": "vi_e1", "scenario": "Emergency", "phrase": "Help!", "translation": "Cứu tôi!", "pronunciation": "KOO-oo toy" },
+        { "id": "vi_e2", "scenario": "Emergency", "phrase": "Call the police", "translation": "Gọi cảnh sát", "pronunciation": "goy KAN sat" },
+        { "id": "vi_e3", "scenario": "Emergency", "phrase": "I need a doctor", "translation": "Tôi cần bác sĩ", "pronunciation": "toy KUN bahk see" },
+        { "id": "vi_t1", "scenario": "Transport", "phrase": "How much does it cost?", "translation": "Bao nhiêu tiền?", "pronunciation": "bow NYEW tyen" },
+        { "id": "vi_s1", "scenario": "Shopping", "phrase": "Too expensive", "translation": "Đắt quá", "pronunciation": "dat KWAH" }
+      ]
+    }
+  ]
+}

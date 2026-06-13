@@ -32,9 +32,25 @@ use commands::scrubber::{
     scrub_file,
 };
 
+use commands::checklists::{
+    get_checklist_templates,
+    load_checklist_template,
+};
+
+use commands::countries::{
+    get_countries,
+    get_country,
+};
+
+use commands::phrasebook::{
+    get_languages,
+    get_language,
+    get_phrases_by_scenario,
+};
+
 #[tauri::command]
 fn get_app_version() -> String {
-    String::from("0.3.0")
+    String::from("0.4.0")
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -63,6 +79,13 @@ pub fn run() {
             reset_checklist,
             scan_exif,
             scrub_file,
+            get_checklist_templates,
+            load_checklist_template,
+            get_countries,
+            get_country,
+            get_languages,
+            get_language,
+            get_phrases_by_scenario,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
