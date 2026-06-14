@@ -67,6 +67,16 @@ pub fn init_db(path: &PathBuf) -> Result<Connection> {
             created_at  TEXT NOT NULL DEFAULT (datetime('now')),
             updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
         );
+        CREATE TABLE IF NOT EXISTS expenses (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            profile_id  INTEGER NOT NULL REFERENCES profiles(id),
+            amount      REAL NOT NULL,
+            currency    TEXT NOT NULL DEFAULT 'USD',
+            category    TEXT NOT NULL,
+            description TEXT NOT NULL DEFAULT '',
+            date        TEXT NOT NULL
+        );
+
     ")?;
 
     Ok(conn)

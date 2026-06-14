@@ -5,3 +5,4 @@ pub mod scrubber;
 pub mod checklists;
 pub mod countries;
 pub mod phrasebook;
+pub mod expenses;

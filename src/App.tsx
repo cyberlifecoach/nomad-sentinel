@@ -7,6 +7,7 @@ import MetadataScrubber from "./pages/MetadataScrubber";
 import PackingChecklists from "./pages/PackingChecklists";
 import CountryChecklists from "./pages/CountryChecklists";
 import Phrasebook from "./pages/Phrasebook";
+import ExpenseTracker from "./pages/ExpenseTracker";
 
 function App() {
   const [version, setVersion] = useState("");
@@ -102,7 +103,7 @@ function App() {
           <NavItem icon="📊" label="Dashboard" isDark={isDark} active={currentPage === "dashboard"} onClick={() => setCurrentPage("dashboard")} />
           <NavItem icon="📓" label="Journal" isDark={isDark} active={currentPage === "journal"} onClick={() => setCurrentPage("journal")} />
           <NavItem icon="✅" label="Packing lists" isDark={isDark} active={currentPage === "checklists"} onClick={() => setCurrentPage("checklists")} />
-          <NavItem icon="💰" label="Expenses" isDark={isDark} />
+          <NavItem icon="💰" label="Expenses" isDark={isDark} active={currentPage === "expenses"} onClick={() => setCurrentPage("expenses")} />
           <NavItem icon="🌍" label="Country guide" isDark={isDark} active={currentPage === "countries"} onClick={() => setCurrentPage("countries")} />
           <NavItem icon="💬" label="Phrasebook" isDark={isDark} active={currentPage === "phrasebook"} onClick={() => setCurrentPage("phrasebook")} />
 
@@ -135,6 +136,8 @@ function App() {
   <CountryChecklists />
 ) : currentPage === "phrasebook" ? (
   <Phrasebook />
+) : currentPage === "expenses" ? (
+  <ExpenseTracker />
 ) : (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>

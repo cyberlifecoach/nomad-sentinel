@@ -48,6 +48,14 @@ use commands::phrasebook::{
     get_phrases_by_scenario,
 };
 
+use commands::expenses::{
+    add_expense,
+    list_expenses,
+    delete_expense,
+    get_expense_summary,
+    export_expenses_csv,
+};
+
 #[tauri::command]
 fn get_app_version() -> String {
     String::from("0.4.0")
@@ -86,6 +94,11 @@ pub fn run() {
             get_languages,
             get_language,
             get_phrases_by_scenario,
+            add_expense,
+            list_expenses,
+            delete_expense,
+            get_expense_summary,
+            export_expenses_csv,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
