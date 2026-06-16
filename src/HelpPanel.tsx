@@ -1,5 +1,5 @@
 // src/HelpPanel.tsx
-
+import { useState } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import { helpTopics } from "./helpContent";
 
@@ -59,6 +59,13 @@ function getMarkdownComponents(isDark: boolean): Components {
 
 function HelpPanel({ isOpen, activeTopicId, onSelectTopic, onClose, isDark }: HelpPanelProps) {
   const activeTopic = helpTopics.find((t) => t.id === activeTopicId) ?? helpTopics[0];
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredTopics = searchQuery.trim() === ""
+    ? helpTopics
+    : helpTopics.filter((t) =>
+        t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        t.content.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
   return (
     <>
@@ -129,22 +136,51 @@ function HelpPanel({ isOpen, activeTopicId, onSelectTopic, onClose, isDark }: He
           padding: "12px 0",
           overflowY: "auto",
         }}>
-          {helpTopics.map((topic) => (
-            <div
-              key={topic.id}
-              onClick={() => onSelectTopic(topic.id)}
+          <div style={{ padding: "0 12px 10px" }}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search help..."
               style={{
-                padding: "8px 16px",
-                cursor: "pointer",
-                fontSize: "13px",
-                color: topic.id === activeTopicId ? "#e8b94a" : (isDark ? "#8fa3b8" : "#4d6278"),
-                borderLeft: topic.id === activeTopicId ? "2px solid #c9922a" : "2px solid transparent",
-                backgroundColor: topic.id === activeTopicId ? (isDark ? "#1d2d3f" : "#e8eef5") : "transparent",
+                width: "100%",
+                boxSizing: "border-box",
+                background: isDark ? "#0f1923" : "#f0f4f8",
+                border: `0.5px solid ${isDark ? "#243347" : "#ccd8e4"}`,
+                borderRadius: "6px",
+                padding: "6px 10px",
+                fontSize: "12px",
+                color: isDark ? "#e8edf2" : "#1a2530",
+                outline: "none",
               }}
-            >
-              {topic.title}
+            />
+          </div>
+          {filteredTopics.length === 0 ? (
+            <div style={{
+              padding: "8px 16px",
+              fontSize: "12px",
+              color: isDark ? "#8fa3b8" : "#4d6278",
+            }}>
+              No results for "{searchQuery}"
             </div>
-          ))}
+          ) : (
+            filteredTopics.map((topic) => (
+              <div
+                key={topic.id}
+                onClick={() => onSelectTopic(topic.id)}
+                style={{
+                  padding: "8px 16px",
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  color: topic.id === activeTopicId ? "#e8b94a" : (isDark ? "#8fa3b8" : "#4d6278"),
+                  borderLeft: topic.id === activeTopicId ? "2px solid #c9922a" : "2px solid transparent",
+                  backgroundColor: topic.id === activeTopicId ? (isDark ? "#1d2d3f" : "#e8eef5") : "transparent",
+                }}
+              >
+                {topic.title}
+              </div>
+            ))
+          )}
         </div>
 
         <div style={{ padding: "20px", overflowY: "auto" }}>
