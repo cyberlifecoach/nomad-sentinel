@@ -14,11 +14,12 @@ interface JournalEntry extends JournalEntryMeta {
 
 interface Props {
   isDark: boolean;
+  onUnsavedChange?: (hasUnsaved: boolean) => void;
 }
 
 const PROFILE_NAME = "Marc";
 
-export default function Journal({ isDark }: Props) {
+export default function Journal({ isDark, onUnsavedChange }: Props) {
   const [profileId, setProfileId] = useState<number | null>(null);
   const [salt, setSalt] = useState<string>("");
   const [passphrase, setPassphrase] = useState<string>("");
@@ -59,6 +60,12 @@ export default function Journal({ isDark }: Props) {
       })
       .catch((e) => setError(String(e)));
   }, []);
+
+  useEffect(() => {
+    const hasDraft = view === "write" && (newTitle.trim() !== "" || newBody.trim() !== "");
+    onUnsavedChange?.(hasDraft);
+    return () => onUnsavedChange?.(false);
+  }, [view, newTitle, newBody, onUnsavedChange]);
 
   async function unlock() {
     if (!passphrase.trim()) return;

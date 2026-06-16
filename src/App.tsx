@@ -9,6 +9,8 @@ import CountryChecklists from "./pages/CountryChecklists";
 import Phrasebook from "./pages/Phrasebook";
 import ExpenseTracker from "./pages/ExpenseTracker";
 import HelpPanel from "./HelpPanel";
+import { exit } from "@tauri-apps/plugin-process";
+import { confirm } from "@tauri-apps/plugin-dialog";
 const pageToHelpTopic: Record<string, string> = {
   dashboard: "overview",
   journal: "journal",
@@ -28,6 +30,7 @@ function App() {
   const [profileId] = useState<number>(1);
   const [helpOpen, setHelpOpen] = useState(false);
   const [helpTopic, setHelpTopic] = useState("overview");
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   useEffect(() => {
     invoke<string>("get_app_version").then(setVersion);
@@ -48,6 +51,27 @@ function App() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentPage]);
+    async function handleQuit() {
+    if (hasUnsavedChanges) {
+      const shouldQuit = await confirm(
+        "You have unsaved changes that will be lost. Quit anyway?",
+        { title: "Unsaved changes", kind: "warning" }
+      );
+      if (!shouldQuit) return;
+    }
+    await exit(0);
+  }
+
+  useEffect(() => {
+    function handleQuitKeyDown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "q") {
+        e.preventDefault();
+        handleQuit();
+      }
+    }
+    window.addEventListener("keydown", handleQuitKeyDown);
+    return () => window.removeEventListener("keydown", handleQuitKeyDown);
+  }, [hasUnsavedChanges]);  
 
   return (
     <div className={isDark ? "dark" : ""} style={{ height: "100vh" }}>
@@ -165,7 +189,7 @@ function App() {
           padding: "20px", overflowY: "auto",
         }}>
          {currentPage === "journal" ? (
-  <Journal isDark={isDark} />
+  <Journal isDark={isDark} onUnsavedChange={setHasUnsavedChanges} />
 ) : currentPage === "setup" ? (
   <SetupWizard isDark={isDark} profileId={profileId} />
 ) : currentPage === "emergency" ? (
@@ -179,7 +203,7 @@ function App() {
 ) : currentPage === "phrasebook" ? (
   <Phrasebook />
 ) : currentPage === "expenses" ? (
-  <ExpenseTracker />
+  <ExpenseTracker onUnsavedChange={setHasUnsavedChanges} />
 ) : (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>

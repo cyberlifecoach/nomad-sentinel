@@ -36,7 +36,11 @@ function toUSD(amount: number, currency: string): number {
   return amount / rate;
 }
 
-export default function ExpenseTracker() {
+interface Props {
+  onUnsavedChange?: (hasUnsaved: boolean) => void;
+}
+
+export default function ExpenseTracker({ onUnsavedChange }: Props) {
   const profileId = 1;
 
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -76,6 +80,12 @@ export default function ExpenseTracker() {
   useEffect(() => {
     if (view === "summary") loadSummary();
   }, [view]);
+
+  useEffect(() => {
+    const hasDraft = view === "add" && (amount.trim() !== "" || description.trim() !== "");
+    onUnsavedChange?.(hasDraft);
+    return () => onUnsavedChange?.(false);
+  }, [view, amount, description, onUnsavedChange]);
 
   async function handleAdd() {
     setError("");
