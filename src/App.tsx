@@ -9,6 +9,17 @@ import CountryChecklists from "./pages/CountryChecklists";
 import Phrasebook from "./pages/Phrasebook";
 import ExpenseTracker from "./pages/ExpenseTracker";
 import HelpPanel from "./HelpPanel";
+const pageToHelpTopic: Record<string, string> = {
+  dashboard: "overview",
+  journal: "journal",
+  setup: "setup-wizard",
+  emergency: "emergency",
+  scrubber: "metadata-scrubber",
+  checklists: "packing-checklists",
+  countries: "country-checklists",
+  phrasebook: "phrasebook",
+  expenses: "expenses",
+};
 
 function App() {
   const [version, setVersion] = useState("");
@@ -21,6 +32,22 @@ function App() {
   useEffect(() => {
     invoke<string>("get_app_version").then(setVersion);
   }, []);
+  
+  function openContextHelp() {
+    setHelpTopic(pageToHelpTopic[currentPage] ?? "overview");
+    setHelpOpen(true);
+  }
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "F1") {
+        e.preventDefault();
+        openContextHelp();
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [currentPage]);
 
   return (
     <div className={isDark ? "dark" : ""} style={{ height: "100vh" }}>
@@ -86,6 +113,18 @@ function App() {
             >
               {isDark ? "☀️" : "🌙"}
             </button>
+            <button
+              onClick={openContextHelp}
+              title="Help (F1)"
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                border: "0.5px solid rgba(255,255,255,0.15)",
+                borderRadius: "8px", padding: "6px 10px",
+                cursor: "pointer", color: "#e8edf2", fontSize: "14px",
+              }}
+            >
+              ❓
+            </button>
           </div>
         </div>
 
@@ -116,7 +155,7 @@ function App() {
           }}>
             <NavItem icon="💾" label="Backup" isDark={isDark} />
             <NavItem icon="⚙️" label="Settings" isDark={isDark} />
-            <NavItem icon="❓" label="Help" isDark={isDark} onClick={() => setHelpOpen(true)} />
+            <NavItem icon="❓" label="Help" isDark={isDark} onClick={openContextHelp} />
           </div>
         </div>
 
