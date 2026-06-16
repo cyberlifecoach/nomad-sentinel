@@ -8,12 +8,15 @@ import PackingChecklists from "./pages/PackingChecklists";
 import CountryChecklists from "./pages/CountryChecklists";
 import Phrasebook from "./pages/Phrasebook";
 import ExpenseTracker from "./pages/ExpenseTracker";
+import HelpPanel from "./HelpPanel";
 
 function App() {
   const [version, setVersion] = useState("");
   const [isDark, setIsDark] = useState(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [profileId] = useState<number>(1);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [helpTopic, setHelpTopic] = useState("overview");
 
   useEffect(() => {
     invoke<string>("get_app_version").then(setVersion);
@@ -113,7 +116,7 @@ function App() {
           }}>
             <NavItem icon="💾" label="Backup" isDark={isDark} />
             <NavItem icon="⚙️" label="Settings" isDark={isDark} />
-            <NavItem icon="❓" label="Help" isDark={isDark} />
+            <NavItem icon="❓" label="Help" isDark={isDark} onClick={() => setHelpOpen(true)} />
           </div>
         </div>
 
@@ -191,6 +194,14 @@ function App() {
         </div>
 
       </div>
+
+      <HelpPanel
+        isOpen={helpOpen}
+        activeTopicId={helpTopic}
+        onSelectTopic={setHelpTopic}
+        onClose={() => setHelpOpen(false)}
+        isDark={isDark}
+      />
     </div>
   );
 }
