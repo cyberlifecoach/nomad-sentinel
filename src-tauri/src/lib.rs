@@ -35,6 +35,14 @@ use commands::scrubber::{
 use commands::checklists::{
     get_checklist_templates,
     load_checklist_template,
+    save_packing_checklist,
+    list_saved_packing_checklists,
+    get_saved_packing_checklist,
+    toggle_packing_checklist_item,
+    add_packing_checklist_item,
+    delete_packing_checklist_item,
+    delete_saved_packing_checklist,
+    export_packing_checklist_csv,
 };
 
 use commands::countries::{
@@ -90,6 +98,14 @@ pub fn run() {
             scrub_file,
             get_checklist_templates,
             load_checklist_template,
+            save_packing_checklist,
+            list_saved_packing_checklists,
+            get_saved_packing_checklist,
+            toggle_packing_checklist_item,
+            add_packing_checklist_item,
+            delete_packing_checklist_item,
+            delete_saved_packing_checklist,
+            export_packing_checklist_csv,
             get_countries,
             get_country,
             get_languages,
