@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 interface Props {
   isDark: boolean;
@@ -10,7 +11,7 @@ interface CheckItem {
   key: string;
   label: string;
   description: string;
-  link?: string;
+  links?: { label: string; url: string }[];
 }
 
 interface Step {
@@ -28,10 +29,10 @@ const STEPS: Step[] = [
     icon: "🔒",
     summary: "A VPN encrypts your traffic and masks your IP on untrusted networks. Essential at airports, cafes, and hotels.",
     items: [
-      { key: "vpn.chosen", label: "Choose a no-log VPN provider", description: "Recommended: Mullvad, ProtonVPN, or IVPN. Avoid free VPNs.", link: "https://mullvad.net" },
+      { key: "vpn.chosen", label: "Choose a no-log VPN provider", description: "Recommended: Mullvad, ProtonVPN, or IVPN. Avoid free VPNs.", links: [{ label: "Mullvad", url: "https://mullvad.net" }, { label: "ProtonVPN", url: "https://protonvpn.com" }, { label: "IVPN", url: "https://ivpn.net" }] },
       { key: "vpn.installed", label: "Install and configure the VPN client", description: "Download from the provider official site. Verify the installer checksum if provided." },
       { key: "vpn.killswitch", label: "Enable kill switch", description: "Blocks all traffic if the VPN drops. Find it in your VPN app settings." },
-      { key: "vpn.tested", label: "Verify VPN is working", description: "Connect then visit ipleak.net. Confirm your real IP and DNS are not visible.", link: "https://ipleak.net" },
+      { key: "vpn.tested", label: "Verify VPN is working", description: "Connect then visit ipleak.net. Confirm your real IP and DNS are not visible.", links: [{ label: "ipleak.net", url: "https://ipleak.net" }] },
       { key: "vpn.autoconnect", label: "Set VPN to auto-connect on untrusted networks", description: "Enable auto-connect for all networks except your known home network." },
     ],
   },
@@ -42,11 +43,17 @@ const STEPS: Step[] = [
     summary: "Your browser is your largest attack surface. These steps reduce tracking, block malicious scripts, and limit fingerprinting.",
     items: [
       { key: "browser.firefox", label: "Use Firefox or a hardened Chromium browser", description: "Firefox offers the best balance of privacy and usability. Brave is a good Chromium alternative." },
-      { key: "browser.ublock", label: "Install uBlock Origin", description: "The most effective content blocker available. Enable EasyPrivacy in filter lists.", link: "https://ublockorigin.com" },
+      { key: "browser.ublock", label: "Install uBlock Origin", description: "The most effective content blocker available. Enable EasyPrivacy in filter lists. On Chrome you'll get uBlock Origin Lite, a reduced version under Manifest V3 restrictions. Switch it to Complete mode in settings, or use Firefox/Brave from the step above for the full version.", links: [{ label: "uBlock Origin", url: "https://ublockorigin.com" }] },
+      { key: "browser.containers", label: "Install Firefox Multi-Account Containers", description: "Isolates cookies and site data per container so sites can't link your activity across tabs. Useful for keeping banking, work, and travel logins separated.", links: [{ label: "Multi-Account Containers", url: "https://addons.mozilla.org/firefox/addon/multi-account-containers/" }] },
+      { key: "browser.cookies", label: "Harden cookie and site data settings", description: "Firefox: Settings -> Privacy and Security -> Enhanced Tracking Protection -> Strict, which blocks third-party cookies. Also enable 'Delete cookies and site data when Firefox is closed' under Cookies and Site Data." },
       { key: "browser.https", label: "Enable HTTPS-Only mode", description: "Firefox: Settings -> Privacy and Security -> HTTPS-Only Mode -> Enable in all windows." },
+      { key: "browser.webrtc", label: "Prevent WebRTC IP leaks", description: "WebRTC can expose your real IP address even behind a VPN. Firefox: set media.peerconnection.enabled to false in about:config. Brave: set the WebRTC IP handling policy to 'Disable non-proxied UDP' in brave://settings/privacy." },
       { key: "browser.telemetry", label: "Disable browser telemetry", description: "Firefox: Settings -> Privacy and Security -> uncheck all Firefox Data Collection boxes." },
       { key: "browser.fingerprint", label: "Reduce fingerprinting exposure", description: "Firefox: set privacy.resistFingerprinting to true in about:config." },
+      { key: "browser.canvas", label: "Block canvas fingerprinting", description: "Canvas fingerprinting reads how your device renders graphics to build a tracking ID that survives clearing cookies. Firefox: covered by resistFingerprinting from the step above. Brave: Shields -> Fingerprinting -> Strict." },
       { key: "browser.passwords", label: "Disable built-in password manager", description: "Use Bitwarden or KeePassXC instead. Disable in Settings -> Privacy and Security -> Logins." },
+      { key: "browser.searchengine", label: "Switch to a privacy-focused search engine", description: "Google and Bing log and profile your searches. These alternatives don't track queries or build an ad profile tied to your identity.", links: [{ label: "Startpage", url: "https://www.startpage.com" }, { label: "Brave Search", url: "https://search.brave.com" }, { label: "Mojeek", url: "https://mojeek.com" }] },
+      { key: "browser.hardeninglist", label: "Apply a deeper about:config hardening list (optional)", description: "Arkenfox user.js is a community-maintained, actively updated Firefox configuration covering far more settings than fit in this checklist. It's the most thorough option, but expect some site breakage and plan to revisit it occasionally. Skip this if you'd rather keep things low-maintenance.", links: [{ label: "Arkenfox user.js", url: "https://github.com/arkenfox/user.js" }] },
     ],
   },
   {
@@ -56,10 +63,10 @@ const STEPS: Step[] = [
     summary: "Standard DNS is unencrypted. Your ISP can see every domain you visit. DoH encrypts DNS queries.",
     items: [
       { key: "dns.understand", label: "Understand what DNS over HTTPS protects", description: "DoH encrypts domain lookups. Without it anyone on your network sees which sites you visit." },
-      { key: "dns.firefox", label: "Enable DoH in Firefox", description: "Settings -> Privacy and Security -> DNS over HTTPS -> Max Protection. Choose Cloudflare or NextDNS.", link: "https://nextdns.io" },
+      { key: "dns.firefox", label: "Enable DoH in Firefox", description: "Settings -> Privacy and Security -> DNS over HTTPS -> Max Protection. Choose Cloudflare or NextDNS.", links: [{ label: "NextDNS", url: "https://nextdns.io" }] },
       { key: "dns.provider", label: "Choose a privacy-respecting DoH provider", description: "Recommended: NextDNS, Cloudflare 1.1.1.1, or Quad9. Avoid your ISP DNS." },
       { key: "dns.os", label: "Set system-level DoH for stronger protection", description: "Windows 11: Settings -> Network -> DNS -> Manual -> Enter DoH server address." },
-      { key: "dns.verified", label: "Verify DoH is active", description: "Visit 1.1.1.1/help to confirm encrypted DNS is resolving correctly.", link: "https://1.1.1.1/help" },
+      { key: "dns.verified", label: "Verify DoH is active", description: "Visit 1.1.1.1/help to confirm encrypted DNS is resolving correctly.", links: [{ label: "1.1.1.1/help", url: "https://1.1.1.1/help" }] },
     ],
   },
   {
@@ -69,9 +76,9 @@ const STEPS: Step[] = [
     summary: "Cloud sync is risky on travel networks. These options provide end-to-end encryption or local-only alternatives.",
     items: [
       { key: "sync.audit", label: "Audit what you sync to the cloud", description: "List every service syncing your data. Decide what needs to be online vs what can stay local." },
-      { key: "sync.bitwarden", label: "Use Bitwarden or KeePassXC for passwords", description: "Bitwarden is E2E encrypted and open source. KeePassXC is fully offline.", link: "https://bitwarden.com" },
-      { key: "sync.syncthing", label: "Consider Syncthing for file sync", description: "Syncs files directly between devices over local network or relay. No cloud account required.", link: "https://syncthing.net" },
-      { key: "sync.proton", label: "Use ProtonDrive or Cryptomator for cloud files", description: "ProtonDrive offers E2E encrypted storage. Cryptomator encrypts folders before cloud sync.", link: "https://proton.me/drive" },
+      { key: "sync.bitwarden", label: "Use Bitwarden or KeePassXC for passwords", description: "Bitwarden is E2E encrypted and open source. KeePassXC is fully offline.", links: [{ label: "Bitwarden", url: "https://bitwarden.com" }] },
+      { key: "sync.syncthing", label: "Consider Syncthing for file sync", description: "Syncs files directly between devices over local network or relay. No cloud account required.", links: [{ label: "Syncthing", url: "https://syncthing.net" }] },
+      { key: "sync.proton", label: "Use ProtonDrive or Cryptomator for cloud files", description: "ProtonDrive offers E2E encrypted storage. Cryptomator encrypts folders before cloud sync.", links: [{ label: "ProtonDrive", url: "https://proton.me/drive" }] },
       { key: "sync.offline", label: "Set up an offline backup routine", description: "Use Nomad Sentinel backup to export an encrypted archive to a USB drive before travel." },
       { key: "sync.reviewed", label: "Review app permissions for cloud access", description: "Revoke access for apps you no longer use. Audit Storage permissions on mobile." },
     ],
@@ -236,11 +243,24 @@ export default function SetupWizard({ isDark, profileId }: Props) {
                   <div style={{ fontSize: "12px", color: isDark ? "#8fa3b8" : "#4d6278", lineHeight: 1.6 }}>
                     {item.description}
                   </div>
-                  {item.link && !done && (
-                    <span style={{ display: "inline-block", marginTop: "6px", fontSize: "11px", color: "#c9922a" }}>
-                      {item.link}
-                    </span>
+
+                  {item.links && item.links.length > 0 && !done && (
+                    <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "6px" }}>
+                      {item.links.map((l) => (
+                        <span
+                          key={l.url}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openUrl(l.url).catch((err) => setError(String(err)));
+                          }}
+                          style={{ fontSize: "11px", color: "#c9922a", textDecoration: "underline", cursor: "pointer" }}
+                        >
+                          {l.label}
+                        </span>
+                      ))}
+                    </div>
                   )}
+
                 </div>
               </div>
             );

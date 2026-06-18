@@ -11,6 +11,7 @@ import countryChecklists from '../help/country-checklists.md?raw';
 import metadataScrubber from '../help/metadata-scrubber.md?raw';
 import phrasebook from '../help/phrasebook.md?raw';
 import expenses from '../help/expenses.md?raw';
+import messageEncryptor from '../help/message-encryptor.md?raw';
 
 export interface HelpTopic {
   id: string;
@@ -30,4 +31,5 @@ export const helpTopics: HelpTopic[] = [
   { id: 'metadata-scrubber', title: 'Metadata Scrubber', content: metadataScrubber },
   { id: 'phrasebook', title: 'Offline Phrasebook', content: phrasebook },
   { id: 'expenses', title: 'Expense Tracker', content: expenses },
+  { id: 'message-encryptor', title: 'Message & File Encryptor', content: messageEncryptor },
 ];

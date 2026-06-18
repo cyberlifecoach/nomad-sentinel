@@ -1,3 +1,4 @@
+import "./App.css";
 import Journal from "./pages/Journal";
 import SetupWizard from "./pages/SetupWizard";
 import EmergencyToolkit from "./pages/EmergencyToolkit";
@@ -8,6 +9,7 @@ import PackingChecklists from "./pages/PackingChecklists";
 import CountryChecklists from "./pages/CountryChecklists";
 import Phrasebook from "./pages/Phrasebook";
 import ExpenseTracker from "./pages/ExpenseTracker";
+import MessageEncryptor from "./pages/MessageEncryptor";
 import HelpPanel from "./HelpPanel";
 import { exit } from "@tauri-apps/plugin-process";
 import { confirm } from "@tauri-apps/plugin-dialog";
@@ -21,6 +23,7 @@ const pageToHelpTopic: Record<string, string> = {
   countries: "country-checklists",
   phrasebook: "phrasebook",
   expenses: "expenses",
+  encryptor: "message-encryptor",
 };
 
 function App() {
@@ -164,7 +167,8 @@ function App() {
           <NavItem icon="🛡" label="Setup wizard" isDark={isDark} active={currentPage === "setup"} onClick={() => setCurrentPage("setup")} />
           <NavItem icon="⚠️" label="Emergency toolkit" isDark={isDark} badge="!" active={currentPage === "emergency"} onClick={() => setCurrentPage("emergency")} />
           <NavItem icon="🔍" label="Metadata scrubber" isDark={isDark} active={currentPage === "scrubber"} onClick={() => setCurrentPage("scrubber")} />
-
+          <NavItem icon="🔒" label="Encryptor" isDark={isDark} active={currentPage === "encryptor"} onClick={() => setCurrentPage("encryptor")} />
+         
           <NavSection label="Travel" />
           <NavItem icon="📊" label="Dashboard" isDark={isDark} active={currentPage === "dashboard"} onClick={() => setCurrentPage("dashboard")} />
           <NavItem icon="📓" label="Journal" isDark={isDark} active={currentPage === "journal"} onClick={() => setCurrentPage("journal")} />
@@ -204,6 +208,8 @@ function App() {
   <Phrasebook />
 ) : currentPage === "expenses" ? (
   <ExpenseTracker onUnsavedChange={setHasUnsavedChanges} />
+) : currentPage === "encryptor" ? (
+  <MessageEncryptor isDark={isDark} />
 ) : (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
