@@ -219,13 +219,18 @@ function App() {
                     Nomad Mode · All systems go
                   </div>
                 </div>
-                <button style={{
-                  backgroundColor: "#c9922a", color: "#0f1923",
-                  border: "none", borderRadius: "8px",
-                  padding: "7px 14px", fontSize: "13px", fontWeight: 500, cursor: "pointer",
-                }}>
-                  + New entry
-                </button>
+                
+                <button
+  onClick={() => setCurrentPage("journal")}
+  style={{
+    backgroundColor: "#c9922a", color: "#0f1923",
+    border: "none", borderRadius: "8px",
+    padding: "7px 14px", fontSize: "13px", fontWeight: 500, cursor: "pointer",
+  }}
+>
+  + New journal entry
+</button>
+              
               </div>
 
               <div style={{
