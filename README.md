@@ -34,6 +34,8 @@ Most security and travel tools force a choice between productivity and privacy. 
 
 Nomad Sentinel makes no outbound network calls unless a feature explicitly requires one. All sensitive data is encrypted at rest using a passphrase-derived key — the passphrase itself is never stored. Every line of code is open source and auditable.
 
+---
+
 ## Installation
 
 Pre-built binaries are published on [GitHub Releases](https://github.com/marclarouche/nomad-sentinel/releases).
@@ -47,6 +49,48 @@ Pre-built binaries are published on [GitHub Releases](https://github.com/marclar
 Download the binary for your platform, run the installer, and launch Nomad Sentinel. No account, no internet connection, and no additional runtime required.
 
 > Nomad Sentinel uses a manual update model. Check the Releases page periodically for new versions — there is no auto-update mechanism by design.
+
+---
+
+## Verifying Downloads
+
+### Linux
+
+All Linux release artifacts are GPG signed. To verify:
+
+1. Download `nomad-sentinel-signing-key.asc` from the release assets and import it:
+```bash
+   gpg --import nomad-sentinel-signing-key.asc
+```
+
+2. Verify the signature against the binary:
+```bash
+   gpg --verify nomad-sentinel_x86_64.AppImage.asc nomad-sentinel_x86_64.AppImage
+```
+
+3. Check the SHA256 checksum against `checksums.txt` in the release assets:
+```bash
+   sha256sum -c checksums.txt
+```
+
+**Signing key fingerprint:** `BB5ABED9E398F6B9C6DB2FA82C734E777EE1F87F`
+**Key owner:** Marc Larouche \<cyberlifecoach@proton.me\>
+
+### Windows
+
+The Windows binary is currently unsigned. You may see a SmartScreen warning on first launch — click "More info" then "Run anyway" to proceed. Windows Authenticode signing is on the roadmap for a future release.
+
+To verify the authenticity of your download, check the SHA256 checksum against `checksums.txt` in the release assets:
+
+```powershell
+Get-FileHash nomad-sentinel_x.x.x_x64-setup.exe -Algorithm SHA256
+```
+
+### macOS
+
+Coming with v1.0. macOS binaries will be signed with a Developer ID certificate and notarized by Apple.
+
+---
 
 ## Building from Source
 
@@ -80,17 +124,21 @@ npm run tauri build
 
 Outputs a platform-specific installer in `src-tauri/target/release/bundle/`.
 
+---
+
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18 + TypeScript + Tailwind CSS |
+| Frontend | React 19 + TypeScript + Tailwind CSS |
 | Backend | Rust (Tauri v2) |
 | Local storage | SQLite via `rusqlite` |
 | Encryption | AES-256-GCM, Argon2id key derivation |
 | CLI | Tauri CLI passthrough — same binary exposes GUI and CLI subcommands |
 
 Binary size: 3–10 MB. No Python, no Node runtime, no external dependencies required at install time.
+
+---
 
 ## Security
 
@@ -103,7 +151,9 @@ Nomad Sentinel is built with a security-first architecture:
 
 A full threat model is documented in [`THREAT_MODEL.md`](THREAT_MODEL.md).
 
-If you discover a security vulnerability, please report it privately rather than opening a public issue. See `THREAT_MODEL.md` for reporting guidance.
+If you discover a security vulnerability, please report it privately rather than opening a public issue. Contact: cyberlifecoach@proton.me
+
+---
 
 ## Who This Is For
 
@@ -113,6 +163,8 @@ If you discover a security vulnerability, please report it privately rather than
 | Journalists | Encrypted notes, emergency toolkit, metadata scrubbing before file sharing |
 | Privacy-conscious travelers | Device security hardening without requiring technical expertise |
 | Remote workers | Expense tracking, packing checklists, country-specific safety information |
+
+---
 
 ## Contributing
 
@@ -125,9 +177,13 @@ Contributions are welcome.
 
 Please open an issue first for significant features so scope can be discussed before work begins.
 
+---
+
 ## License
 
 [MIT](LICENSE) — free to use, modify, and share with attribution.
+
+---
 
 ## Links
 
