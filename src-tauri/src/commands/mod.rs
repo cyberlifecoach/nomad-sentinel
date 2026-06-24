@@ -6,3 +6,5 @@ pub mod checklists;
 pub mod countries;
 pub mod phrasebook;
 pub mod expenses;
+pub mod profiles;
+pub mod backup;

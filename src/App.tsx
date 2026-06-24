@@ -10,9 +10,12 @@ import CountryChecklists from "./pages/CountryChecklists";
 import Phrasebook from "./pages/Phrasebook";
 import ExpenseTracker from "./pages/ExpenseTracker";
 import MessageEncryptor from "./pages/MessageEncryptor";
+import Settings from "./pages/Settings";
+import Backup from "./pages/Backup";
 import HelpPanel from "./HelpPanel";
 import { exit } from "@tauri-apps/plugin-process";
 import { confirm } from "@tauri-apps/plugin-dialog";
+
 const pageToHelpTopic: Record<string, string> = {
   dashboard: "overview",
   journal: "journal",
@@ -24,13 +27,24 @@ const pageToHelpTopic: Record<string, string> = {
   phrasebook: "phrasebook",
   expenses: "expenses",
   encryptor: "message-encryptor",
+  settings: "overview",
+  backup: "backup",
+};
+
+const MODE_LABELS: Record<string, string> = {
+  nomad: "Nomad Mode",
+  journalist: "Journalist Mode",
+  traveler: "Traveler Mode",
+  all: "All Tools",
 };
 
 function App() {
   const [version, setVersion] = useState("");
   const [isDark, setIsDark] = useState(true);
   const [currentPage, setCurrentPage] = useState("dashboard");
-  const [profileId] = useState<number>(1);
+  const [profileId, setProfileId] = useState<number>(1);
+  const [profileName, setProfileName] = useState<string>("Marc");
+  const [profileMode, setProfileMode] = useState<string>("nomad");
   const [helpOpen, setHelpOpen] = useState(false);
   const [helpTopic, setHelpTopic] = useState("overview");
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -38,7 +52,7 @@ function App() {
   useEffect(() => {
     invoke<string>("get_app_version").then(setVersion);
   }, []);
-  
+
   function openContextHelp() {
     setHelpTopic(pageToHelpTopic[currentPage] ?? "overview");
     setHelpOpen(true);
@@ -54,7 +68,8 @@ function App() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentPage]);
-    async function handleQuit() {
+
+  async function handleQuit() {
     if (hasUnsavedChanges) {
       const shouldQuit = await confirm(
         "You have unsaved changes that will be lost. Quit anyway?",
@@ -74,7 +89,13 @@ function App() {
     }
     window.addEventListener("keydown", handleQuitKeyDown);
     return () => window.removeEventListener("keydown", handleQuitKeyDown);
-  }, [hasUnsavedChanges]);  
+  }, [hasUnsavedChanges]);
+
+  function handleProfileSwitch(id: number, name: string, mode: string) {
+    setProfileId(id);
+    setProfileName(name);
+    setProfileMode(mode);
+  }
 
   return (
     <div className={isDark ? "dark" : ""} style={{ height: "100vh" }}>
@@ -112,21 +133,28 @@ function App() {
           <span style={{ fontSize: "11px", color: "#c9922a" }}>v{version}</span>
 
           <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "12px" }}>
-            <div style={{
-              display: "flex", alignItems: "center", gap: "8px",
-              background: "rgba(255,255,255,0.08)",
-              border: "0.5px solid rgba(255,255,255,0.15)",
-              borderRadius: "20px", padding: "4px 10px 4px 6px", cursor: "pointer",
-            }}>
+            <div
+              onClick={() => setCurrentPage("settings")}
+              style={{
+                display: "flex", alignItems: "center", gap: "8px",
+                background: "rgba(255,255,255,0.08)",
+                border: "0.5px solid rgba(255,255,255,0.15)",
+                borderRadius: "20px", padding: "4px 10px 4px 6px", cursor: "pointer",
+              }}
+            >
               <div style={{
                 width: "20px", height: "20px", borderRadius: "50%",
                 backgroundColor: "#c9922a",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "10px", fontWeight: 500, color: "#0f1923",
-              }}>M</div>
+              }}>
+                {profileName.charAt(0).toUpperCase()}
+              </div>
               <div>
-                <div style={{ fontSize: "12px", color: "#e8edf2" }}>Marc</div>
-                <div style={{ fontSize: "10px", color: "#c9922a", fontWeight: 500 }}>Nomad Mode</div>
+                <div style={{ fontSize: "12px", color: "#e8edf2" }}>{profileName}</div>
+                <div style={{ fontSize: "10px", color: "#c9922a", fontWeight: 500 }}>
+                  {MODE_LABELS[profileMode] ?? profileMode}
+                </div>
               </div>
             </div>
             <button
@@ -168,7 +196,7 @@ function App() {
           <NavItem icon="⚠️" label="Emergency toolkit" isDark={isDark} badge="!" active={currentPage === "emergency"} onClick={() => setCurrentPage("emergency")} />
           <NavItem icon="🔍" label="Metadata scrubber" isDark={isDark} active={currentPage === "scrubber"} onClick={() => setCurrentPage("scrubber")} />
           <NavItem icon="🔒" label="Encryptor" isDark={isDark} active={currentPage === "encryptor"} onClick={() => setCurrentPage("encryptor")} />
-         
+
           <NavSection label="Travel" />
           <NavItem icon="📊" label="Dashboard" isDark={isDark} active={currentPage === "dashboard"} onClick={() => setCurrentPage("dashboard")} />
           <NavItem icon="📓" label="Journal" isDark={isDark} active={currentPage === "journal"} onClick={() => setCurrentPage("journal")} />
@@ -181,8 +209,8 @@ function App() {
             marginTop: "auto", paddingTop: "12px",
             borderTop: `0.5px solid ${isDark ? "#243347" : "#ccd8e4"}`,
           }}>
-            <NavItem icon="💾" label="Backup" isDark={isDark} />
-            <NavItem icon="⚙️" label="Settings" isDark={isDark} />
+            <NavItem icon="💾" label="Backup" isDark={isDark} active={currentPage === "backup"} onClick={() => setCurrentPage("backup")} />
+            <NavItem icon="⚙️" label="Settings" isDark={isDark} active={currentPage === "settings"} onClick={() => setCurrentPage("settings")} />
             <NavItem icon="❓" label="Help" isDark={isDark} onClick={openContextHelp} />
           </div>
         </div>
@@ -192,45 +220,51 @@ function App() {
           backgroundColor: isDark ? "#0f1923" : "#f0f4f8",
           padding: "20px", overflowY: "auto",
         }}>
-         {currentPage === "journal" ? (
-  <Journal isDark={isDark} onUnsavedChange={setHasUnsavedChanges} />
-) : currentPage === "setup" ? (
-  <SetupWizard isDark={isDark} profileId={profileId} />
-) : currentPage === "emergency" ? (
-  <EmergencyToolkit isDark={isDark} profileId={profileId} />
-) : currentPage === "scrubber" ? (
-  <MetadataScrubber isDark={isDark} />
-) : currentPage === "checklists" ? (
-  <PackingChecklists />
-) : currentPage === "countries" ? (
-  <CountryChecklists />
-) : currentPage === "phrasebook" ? (
-  <Phrasebook />
-) : currentPage === "expenses" ? (
-  <ExpenseTracker onUnsavedChange={setHasUnsavedChanges} />
-) : currentPage === "encryptor" ? (
-  <MessageEncryptor isDark={isDark} />
-) : (
+          {currentPage === "journal" ? (
+            <Journal isDark={isDark} onUnsavedChange={setHasUnsavedChanges} />
+          ) : currentPage === "setup" ? (
+            <SetupWizard isDark={isDark} profileId={profileId} />
+          ) : currentPage === "emergency" ? (
+            <EmergencyToolkit isDark={isDark} profileId={profileId} />
+          ) : currentPage === "scrubber" ? (
+            <MetadataScrubber isDark={isDark} />
+          ) : currentPage === "checklists" ? (
+            <PackingChecklists />
+          ) : currentPage === "countries" ? (
+            <CountryChecklists />
+          ) : currentPage === "phrasebook" ? (
+            <Phrasebook />
+          ) : currentPage === "expenses" ? (
+            <ExpenseTracker onUnsavedChange={setHasUnsavedChanges} />
+          ) : currentPage === "encryptor" ? (
+            <MessageEncryptor isDark={isDark} />
+          ) : currentPage === "settings" ? (
+            <Settings
+              isDark={isDark}
+              activeProfileId={profileId}
+              onProfileSwitch={handleProfileSwitch}
+            />
+          ) : currentPage === "backup" ? (
+            <Backup isDark={isDark} />
+          ) : (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
                 <div>
                   <div style={{ fontSize: "18px", fontWeight: 500 }}>Dashboard</div>
                   <div style={{ fontSize: "12px", color: isDark ? "#8fa3b8" : "#4d6278", marginTop: "2px" }}>
-                    Nomad Mode · All systems go
+                    {MODE_LABELS[profileMode] ?? profileMode} · All systems go
                   </div>
                 </div>
-                
                 <button
-  onClick={() => setCurrentPage("journal")}
-  style={{
-    backgroundColor: "#c9922a", color: "#0f1923",
-    border: "none", borderRadius: "8px",
-    padding: "7px 14px", fontSize: "13px", fontWeight: 500, cursor: "pointer",
-  }}
->
-  + New journal entry
-</button>
-              
+                  onClick={() => setCurrentPage("journal")}
+                  style={{
+                    backgroundColor: "#c9922a", color: "#0f1923",
+                    border: "none", borderRadius: "8px",
+                    padding: "7px 14px", fontSize: "13px", fontWeight: 500, cursor: "pointer",
+                  }}
+                >
+                  + New journal entry
+                </button>
               </div>
 
               <div style={{
@@ -266,7 +300,6 @@ function App() {
             </>
           )}
         </div>
-
       </div>
 
       <HelpPanel
@@ -296,7 +329,7 @@ function NavItem({ icon, label, isDark, active, badge, onClick }: {
       onClick={onClick}
       style={{
         display: "flex", alignItems: "center", gap: "10px",
-        padding: "8px 16px", cursor: "pointer",
+        padding: "8px 16px", cursor: onClick ? "pointer" : "default",
         color: active ? "#e8b94a" : (isDark ? "#8fa3b8" : "#4d6278"),
         borderLeft: active ? "2px solid #c9922a" : "2px solid transparent",
         backgroundColor: active ? (isDark ? "#1d2d3f" : "#e8eef5") : "transparent",

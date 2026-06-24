@@ -1,7 +1,6 @@
 pub mod db;
 pub mod crypto;
 pub mod commands;
-
 use commands::journal::{
     ensure_profile,
     create_journal_entry,
@@ -9,13 +8,11 @@ use commands::journal::{
     get_journal_entry,
     delete_journal_entry,
 };
-
 use commands::setup::{
     get_setup_progress,
     toggle_setup_item,
     get_setup_summary,
 };
-
 use commands::emergency::{
     create_contact,
     list_contacts,
@@ -31,7 +28,6 @@ use commands::scrubber::{
     scan_exif,
     scrub_file,
 };
-
 use commands::checklists::{
     get_checklist_templates,
     load_checklist_template,
@@ -44,18 +40,15 @@ use commands::checklists::{
     delete_saved_packing_checklist,
     export_packing_checklist_csv,
 };
-
 use commands::countries::{
     get_countries,
     get_country,
 };
-
 use commands::phrasebook::{
     get_languages,
     get_language,
     get_phrases_by_scenario,
 };
-
 use commands::expenses::{
     add_expense,
     list_expenses,
@@ -63,12 +56,19 @@ use commands::expenses::{
     get_expense_summary,
     export_expenses_csv,
 };
+use commands::profiles::{
+    list_profiles,
+    create_profile,
+    update_profile_mode,
+    update_profile_name,
+    delete_profile,
+};
+use commands::backup::{export_backup, import_backup};
 
 #[tauri::command]
 fn get_app_version() -> String {
-    String::from("0.4.0")
+    String::from("1.1.0")
 }
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -116,6 +116,13 @@ pub fn run() {
             delete_expense,
             get_expense_summary,
             export_expenses_csv,
+            list_profiles,
+            create_profile,
+            update_profile_mode,
+            update_profile_name,
+            delete_profile,
+            export_backup,
+            import_backup,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
