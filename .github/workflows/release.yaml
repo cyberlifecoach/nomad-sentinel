@@ -176,12 +176,40 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           DMG=$(find src-tauri/target/universal-apple-darwin/release/bundle/dmg -name "*.dmg" | head -1)
-          xcrun notarytool submit "$DMG" \
+          echo "Submitting $DMG for notarization..."
+          SUBMISSION=$(xcrun notarytool submit "$DMG" \
             --apple-id "$APPLE_ID" \
             --password "$APPLE_PASSWORD" \
             --team-id "$APPLE_TEAM_ID" \
-            --wait
-          xcrun stapler staple "$DMG"
+            --output-format json)
+          echo "$SUBMISSION"
+          SUBMISSION_ID=$(echo "$SUBMISSION" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+          echo "Submission ID: $SUBMISSION_ID"
+          echo "Polling for result (max 30 minutes)..."
+          for i in $(seq 1 60); do
+            sleep 30
+            STATUS=$(xcrun notarytool info "$SUBMISSION_ID" \
+              --apple-id "$APPLE_ID" \
+              --password "$APPLE_PASSWORD" \
+              --team-id "$APPLE_TEAM_ID" \
+              --output-format json | python3 -c "import sys,json; print(json.load(sys.stdin)['status'])")
+            echo "[$i/60] Status: $STATUS"
+            if [ "$STATUS" = "Accepted" ]; then
+              echo "Notarization accepted. Stapling..."
+              xcrun stapler staple "$DMG"
+              echo "Staple complete."
+              exit 0
+            elif [ "$STATUS" = "Invalid" ] || [ "$STATUS" = "Rejected" ]; then
+              echo "Notarization failed with status: $STATUS"
+              xcrun notarytool log "$SUBMISSION_ID" \
+                --apple-id "$APPLE_ID" \
+                --password "$APPLE_PASSWORD" \
+                --team-id "$APPLE_TEAM_ID"
+              exit 1
+            fi
+          done
+          echo "Timed out after 30 minutes waiting for notarization."
+          exit 1
       - name: Generate checksum
         run: |
           DMG=$(find src-tauri/target/universal-apple-darwin/release/bundle/dmg -name "*.dmg" | head -1)
